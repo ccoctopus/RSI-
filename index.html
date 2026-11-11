@@ -1,0 +1,913 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="RSI 研究工作台：系统梳理递归自我改进（Recursive Self-Improvement）的定义、思想史、机制、经验证据、加速论战、安全风险与批评。公开资料综述，观点归属与可信度分层标注。">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f1ea">
+  <title>RSI 研究工作台 · 递归自我改进</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    /* 在样式应用前恢复主题，避免深色模式闪白。 */
+    (function () {
+      try {
+        var saved = localStorage.getItem("rsi-theme");
+        var theme = saved || (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+      } catch (error) {
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到正文</a>
+
+  <div class="reading-progress" aria-hidden="true"><span id="reading-progress-bar"></span></div>
+
+  <header class="mobile-header" aria-label="移动端工具栏">
+    <a class="mobile-brand" href="#overview" aria-label="RSI 工作台，回到总览">
+      <span class="brand-mark brand-mark--small" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="28" height="28" role="presentation">
+          <circle cx="16" cy="16" r="12" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".35"/>
+          <path d="M16 5a11 11 0 0 1 11 11" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+          <path d="M11.2 8.5 16 4.2l4.8 4.3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="16" cy="16" r="3.4" fill="currentColor"/>
+        </svg>
+      </span>
+      <span>RSI 工作台</span>
+    </a>
+    <div class="mobile-actions">
+      <button class="icon-button theme-toggle" type="button" aria-label="切换深色模式" title="切换深色模式">
+        <svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+          <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+          <path d="M20.2 15.2A8.5 8.5 0 0 1 8.8 3.8 8.5 8.5 0 1 0 20.2 15.2Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button class="icon-button menu-toggle" type="button" aria-label="打开目录" aria-expanded="false" aria-controls="sidebar">
+        <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="sidebar-overlay" id="sidebar-overlay" hidden></div>
+
+  <aside class="sidebar" id="sidebar" aria-label="章节目录">
+    <div class="sidebar-top">
+      <a class="brand" href="#overview" aria-label="RSI 研究工作台，回到总览">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" width="38" height="38" role="presentation">
+            <circle cx="20" cy="20" r="15" fill="none" stroke="currentColor" stroke-width="1.4" opacity=".3"/>
+            <path d="M20 5a15 15 0 0 1 15 15" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/>
+            <path d="M13.5 9.2 20 3.5l6.5 5.7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="20" cy="20" r="4.2" fill="currentColor"/>
+            <circle cx="20" cy="20" r="9.5" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 4" opacity=".7"/>
+          </svg>
+        </span>
+        <span class="brand-text">
+          <strong>RSI 工作台</strong>
+          <small>Recursive Self-Improvement</small>
+        </span>
+      </a>
+      <p class="sidebar-intro">一份分层、可核查的前沿议题综述。事实、共识、争议与推测分开标注。</p>
+    </div>
+
+    <nav class="toc" id="toc" aria-label="页面章节">
+      <a href="#overview" class="toc-link is-active" data-nav="overview"><span class="toc-num">00</span><span>研究总览</span></a>
+      <a href="#definition" class="toc-link" data-nav="definition"><span class="toc-num">01</span><span>定义与边界</span></a>
+      <a href="#history" class="toc-link" data-nav="history"><span class="toc-num">02</span><span>思想史时间轴</span></a>
+      <a href="#argument" class="toc-link" data-nav="argument"><span class="toc-num">03</span><span>论证结构</span></a>
+      <a href="#mechanisms" class="toc-link" data-nav="mechanisms"><span class="toc-num">04</span><span>机制分类</span></a>
+      <a href="#evidence" class="toc-link" data-nav="evidence"><span class="toc-num">05</span><span>经验证据库</span></a>
+      <a href="#takeoff" class="toc-link" data-nav="takeoff"><span class="toc-num">06</span><span>加速论战</span></a>
+      <a href="#safety" class="toc-link" data-nav="safety"><span class="toc-num">07</span><span>安全与治理</span></a>
+      <a href="#criticism" class="toc-link" data-nav="criticism"><span class="toc-num">08</span><span>批评与未解问题</span></a>
+      <a href="#glossary" class="toc-link" data-nav="glossary"><span class="toc-num">09</span><span>术语表</span></a>
+      <a href="#reading" class="toc-link" data-nav="reading"><span class="toc-num">10</span><span>阅读清单</span></a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-meta">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span>最后核查 <time datetime="2026-11-10">2026-11-10</time></span>
+      </div>
+      <button class="theme-toggle theme-toggle--wide" type="button" aria-label="切换深色模式">
+        <span class="theme-label">深色模式</span>
+        <span class="theme-switch" aria-hidden="true"><span></span></span>
+      </button>
+      <p class="sidebar-disclaimer">公开资料综述，不构成安全或政策建议。</p>
+    </div>
+  </aside>
+
+  <div class="main-column">
+    <main id="main">
+      <!-- 00 · HERO / OVERVIEW -->
+      <section id="overview" class="hero section" aria-labelledby="hero-title">
+        <div class="section-inner hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow"><span class="eyebrow-line"></span>RESEARCH WORKBENCH / 2026</p>
+            <h1 id="hero-title">递归自我改进<br><span class="hero-accent">RSI</span> 研究工作台</h1>
+            <p class="hero-lead">
+              当系统开始改进“产生自身智能的机制”，会发生什么？本页把定义、思想史、机制、经验证据、加速论战与安全风险拆开呈现，并明确标注<strong>谁在主张</strong>、证据有多强。
+            </p>
+            <div class="hero-actions">
+              <a class="button button--primary" href="#definition">从定义开始 <span aria-hidden="true">→</span></a>
+              <a class="button button--ghost" href="#evidence">跳到证据库 <span aria-hidden="true">↓</span></a>
+            </div>
+            <div class="hero-note">
+              <span class="mini-badge">观点归属</span>
+              <span class="mini-badge">可信度分层</span>
+              <span class="mini-badge">来源可核查</span>
+              <span>不把推测写成事实。</span>
+            </div>
+          </div>
+
+          <div class="hero-figure" aria-label="递归自我改进闭环示意图">
+            <svg viewBox="0 0 460 460" role="img" aria-labelledby="loop-title loop-desc">
+              <title id="loop-title">递归自我改进闭环</title>
+              <desc id="loop-desc">改进器产生能力提升，评估器提供反馈，瓶颈限制增益；箭头形成闭环。</desc>
+              <defs>
+                <marker id="arrow-head" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                  <path d="M0 0 10 5 0 10Z" class="svg-arrow-head"/>
+                </marker>
+              </defs>
+              <circle cx="230" cy="230" r="170" class="figure-ring figure-ring--outer"/>
+              <circle cx="230" cy="230" r="128" class="figure-ring figure-ring--inner"/>
+              <path d="M230 74a156 156 0 0 1 147 104" class="figure-arc" marker-end="url(#arrow-head)"/>
+              <path d="M373 286a156 156 0 0 1-134 86" class="figure-arc" marker-end="url(#arrow-head)"/>
+              <path d="M143 370A156 156 0 0 1 87 164" class="figure-arc" marker-end="url(#arrow-head)"/>
+              <g class="figure-node">
+                <circle cx="230" cy="230" r="54" class="node-core"/>
+                <text x="230" y="224" text-anchor="middle" class="node-title">改进器</text>
+                <text x="230" y="244" text-anchor="middle" class="node-sub">Improver</text>
+              </g>
+              <g class="figure-node">
+                <circle cx="246" cy="68" r="34" class="node-satellite"/>
+                <text x="246" y="65" text-anchor="middle" class="node-label">能力</text>
+                <text x="246" y="81" text-anchor="middle" class="node-sub">Capability</text>
+              </g>
+              <g class="figure-node">
+                <circle cx="392" cy="302" r="38" class="node-satellite node-satellite--warm"/>
+                <text x="392" y="299" text-anchor="middle" class="node-label">评估器</text>
+                <text x="392" y="315" text-anchor="middle" class="node-sub">Evaluator</text>
+              </g>
+              <g class="figure-node">
+                <circle cx="125" cy="382" r="38" class="node-satellite node-satellite--muted"/>
+                <text x="125" y="379" text-anchor="middle" class="node-label">瓶颈</text>
+                <text x="125" y="395" text-anchor="middle" class="node-sub">Bottleneck</text>
+              </g>
+              <text x="230" y="430" text-anchor="middle" class="figure-caption">闭环增益 = 改进收益 − 实验 / 评估 / 对齐损耗</text>
+            </svg>
+          </div>
+        </div>
+
+        <div class="section-inner">
+          <div class="hero-stats" aria-label="页面统计">
+            <div class="stat"><strong data-stat="sections">10</strong><span>章节</span></div>
+            <div class="stat"><strong data-stat="timeline">15</strong><span>时间轴节点</span></div>
+            <div class="stat"><strong data-stat="evidence">11</strong><span>证据卡</span></div>
+            <div class="stat"><strong data-stat="papers">36</strong><span>阅读条目</span></div>
+            <div class="stat stat--wide"><strong>2026-11-10</strong><span>最后核查</span></div>
+          </div>
+
+          <div class="credibility-legend" aria-label="可信度标签说明">
+            <div class="legend-item">
+              <span class="tag tag--fact">【事实】</span>
+              <p>可观察、可复现或有公开记录的结果。不等于对长期含义的判断。</p>
+            </div>
+            <div class="legend-item">
+              <span class="tag tag--consensus">【学界共识】</span>
+              <p>在相关研究群体中有较广泛支持，但仍可能有边界争议。</p>
+            </div>
+            <div class="legend-item">
+              <span class="tag tag--debate">【存在争议】</span>
+              <p>有实质证据或论证支持不同结论；本页会写出主张者。</p>
+            </div>
+            <div class="legend-item">
+              <span class="tag tag--speculation">【推测】</span>
+              <p>条件性预测、思想实验或外推。不能当作已发生事实。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 01 · DEFINITION -->
+      <section id="definition" class="section" aria-labelledby="definition-title">
+        <div class="section-inner">
+          <header class="section-header">
+            <p class="section-kicker">01 / DEFINITION &amp; BOUNDARIES</p>
+            <h2 id="definition-title">定义与边界：什么才算“递归”？</h2>
+            <p class="section-lead">
+              递归自我改进不是“模型会改自己的答案”，也不是“模型会生成训练数据”。严格意义上的递归，要求改进的对象是<strong>产生智能的机制</strong>，而且改进后的机制继续参与下一轮改进。
+            </p>
+          </header>
+
+          <div class="definition-panel">
+            <p class="definition-quote">
+              “RSI 指系统能够改进<strong>产生其自身智能的机制</strong>，且改进后的机制能继续带来改进，形成闭环。”
+            </p>
+            <div class="definition-conditions">
+              <div class="condition">
+                <span class="condition-num">A</span>
+                <div>
+                  <h3>改进对象是机制</h3>
+                  <p>不是只让输出更好，而是改变搜索、学习、评估或自我修改的方式。</p>
+                </div>
+              </div>
+              <div class="condition">
+                <span class="condition-num">B</span>
+                <div>
+                  <h3>改进后的机制继续改进</h3>
+                  <p>收益必须反馈到下一轮，而不是一次性的提示技巧或人工重写。</p>
+                </div>
+              </div>
+              <div class="condition">
+                <span class="condition-num">C</span>
+                <div>
+                  <h3>形成可观察的闭环</h3>
+                  <p>要有跨代证据，而不只是单轮“自我批评”或一次代码补丁。</p>
+                </div>
+              </div>
+            </div>
+            <p class="panel-note">
+              <span class="tag tag--debate">【存在争议】</span>
+              这三个条件仍有解释空间：多长的闭环才算“多代”？评估器被系统部分影响算不算仍独立？本页核查的论文各自采用不同定义。
+            </p>
+          </div>
+
+          <div class="callout callout--warm">
+            <div class="callout-icon" aria-hidden="true">!</div>
+            <div>
+              <h3>“递归”的严格含义：改进的是改进器本身</h3>
+              <p>
+                如果系统只是把当前的答案改得更好、用自己生成的数据再训练、或用提示让模型自我批评，这些都可能很有用，但不自动构成 RSI。关键差别是：<strong>下一轮“改进能力”本身是否被提升</strong>，而不只是“这一轮的产物”更好。
+              </p>
+              <p class="attribution">本页的操作性区分；不是学界统一标准。</p>
+            </div>
+          </div>
+
+          <div class="table-block">
+            <div class="block-heading">
+              <h3>关键区分：六种容易混淆的范式</h3>
+              <p>同一项工作可能横跨多行；分类是光谱，不是二值判断。</p>
+            </div>
+            <div class="table-wrap" tabindex="0" role="region" aria-label="RSI 与相邻范式对比表，可横向滚动">
+              <table class="data-table comparison-table">
+                <caption class="sr-only">递归自我改进与自我训练、自我精炼、元学习、AutoML/NAS、代理脚手架优化的对比</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">范式</th>
+                    <th scope="col">改进对象</th>
+                    <th scope="col">改进“改进器”吗？</th>
+                    <th scope="col">典型信号</th>
+                    <th scope="col">与严格 RSI 的关系</th>
+                    <th scope="col">代表工作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="row-emphasis">
+                    <th scope="row">递归自我改进<br><span class="en">Recursive Self-Improvement</span></th>
+                    <td>产生智能的机制 / 改进器本身</td>
+                    <td><span class="yes">是，且形成闭环</span></td>
+                    <td>内部评估 + 外部验证</td>
+                    <td>严格目标；目前缺少开放式长期证据</td>
+                    <td>Gödel Machine（理论）；DGM（部分）</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">自我训练 / 自博弈<br><span class="en">Self-training / Self-play</span></th>
+                    <td>模型策略、权重或技能</td>
+                    <td>通常否</td>
+                    <td>答案正确性、胜负、环境奖励</td>
+                    <td>闭环学习，但不是改进“改进器”</td>
+                    <td>STaR、AlphaZero、Voyager</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">自我批评 / 自我精炼<br><span class="en">Self-Refine / Reflexion</span></th>
+                    <td>当前输出或行为轨迹</td>
+                    <td>否</td>
+                    <td>同一模型的自评、语言反馈</td>
+                    <td>提示技巧；通常不改变权重</td>
+                    <td>Self-Refine、Reflexion</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">元学习<br><span class="en">Meta-learning</span></th>
+                    <td>学习算法、先验或适应过程</td>
+                    <td>部分：若把元学习器本身作为对象</td>
+                    <td>任务分布上的表现</td>
+                    <td>可能成为 RSI 的组件，但不自动递归</td>
+                    <td>learning-to-learn 系列</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">AutoML / NAS<br><span class="en">Automated ML / Neural Architecture Search</span></th>
+                    <td>架构、超参数、流程</td>
+                    <td>否</td>
+                    <td>验证集指标</td>
+                    <td>搜索自动化，不是自我改进闭环</td>
+                    <td>NAS 系列</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">代理脚手架优化<br><span class="en">Agent scaffold optimization</span></th>
+                    <td>提示、工具调用、工作流、代理代码</td>
+                    <td>部分：若脚手架包含改进器</td>
+                    <td>基准分数、任务成功</td>
+                    <td>弱 RSI 候选；常受评估器与基础模型限制</td>
+                    <td>STOP、ADAS、DGM</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="note-grid">
+            <article class="note-card">
+              <span class="tag tag--debate">【存在争议】</span>
+              <h3>“多强才算递归”没有统一操作化定义</h3>
+              <p>
+                STOP 作者明确说基础模型没有被改变，因此不是 full recursive self-improvement；DGM 用编码基准衡量自我改进，并保留人类监督。两者都常被放进“递归”讨论，但判据不同。学界尚没有一个被广泛接受的最低阈值。
+              </p>
+            </article>
+            <article class="note-card">
+              <span class="tag tag--fact">【事实】</span>
+              <h3>名称相同，证据层级可以差很远</h3>
+              <p>
+                理论上的 Gödel Machine、提示级的 Self-Refine、代码级的 DGM，都可以被塞进“自我改进”标题。阅读时应先问：改进对象是什么？评估者是谁？闭环多长？是否更新基础模型？
+              </p>
+            </article>
+          </div>
+
+          <p class="inline-note">
+            术语提示：将鼠标移到
+            <span class="term" data-term="rsi" tabindex="0" role="button">RSI</span>、
+            <span class="term" data-term="recursion" tabindex="0" role="button">递归</span>、
+            <span class="term" data-term="seed-ai" tabindex="0" role="button">种子 AI</span>
+            上查看解释；点击可跳到术语表。
+          </p>
+        </div>
+      </section>
+
+      <!-- 02 · HISTORY -->
+      <section id="history" class="section section--tinted" aria-labelledby="history-title">
+        <div class="section-inner">
+          <header class="section-header">
+            <p class="section-kicker">02 / INTELLECTUAL HISTORY</p>
+            <h2 id="history-title">思想史时间轴：从推测到可运行实验</h2>
+            <p class="section-lead">
+              这条时间轴混合了四种东西：思想实验、哲学论证、形式化理论、经验实验。它们的分量不同，不能因为都叫“RSI”就等量齐观。
+            </p>
+          </header>
+
+          <div class="timeline-toolbar">
+            <div class="filter-group" id="decade-filters" aria-label="按年代筛选时间轴"></div>
+            <div class="toolbar-actions">
+              <span class="result-count" id="timeline-count" aria-live="polite"></span>
+              <button class="button button--small" type="button" id="timeline-expand-all">展开全部</button>
+            </div>
+          </div>
+
+          <div class="timeline" id="timeline-list"></div>
+
+          <div class="callout callout--plain">
+            <div class="callout-icon" aria-hidden="true">✓</div>
+            <div>
+              <h3>链接核查说明</h3>
+              <p>
+                本时间轴的外部链接已在 <time datetime="2026-11-10">2026-11-10</time> 通过 HTTP 请求抽查。Open Philanthropy 的 Davidson 报告原页面对自动抓取返回 403，因此使用 Epoch AI 的配套互动模型页；条目中已注明这一点。Cotra（2020）的 Cold Takes 解释页在当前网络环境连接失败，已标为“待核实”。
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 · ARGUMENT -->
+      <section id="argument" class="section" aria-labelledby="argument-title">
+        <div class="section-inner">
+          <header class="section-header">
+            <p class="section-kicker">03 / ARGUMENT MAP</p>
+            <h2 id="argument-title">论证结构：支持方的三段论与反方的瓶颈清单</h2>
+            <p class="section-lead">
+              支持方与反方往往不是在争论同一个命题。把论证拆成前提、反馈条件与速度结论，才能看清分歧到底在哪一层。
+            </p>
+          </header>
+
+          <div class="argument-flow" aria-label="支持方三段论">
+            <article class="argument-step">
+              <span class="argument-index">P1</span>
+              <span class="tag tag--fact">【事实】</span>
+              <h3>智能可用于改进智能</h3>
+              <p>AI 已能辅助写代码、搜索算法、设计实验。</p>
+              <p class="attribution">工程事实；是否覆盖一般智能仍未知。</p>
+            </article>
+            <div class="flow-arrow" aria-hidden="true">→</div>
+            <article class="argument-step">
+              <span class="argument-index">P2</span>
+              <span class="tag tag--debate">【存在争议】</span>
+              <h3>改进可以闭合成环</h3>
+              <p>把产物重新投入下一轮，并让评估信号可靠。</p>
+              <p class="attribution">短程闭环已有演示；长期维持与跨域泛化是争议点。</p>
+            </article>
+            <div class="flow-arrow" aria-hidden="true">→</div>
+            <article class="argument-step argument-step--conclusion">
+              <span class="argument-index">C</span>
+              <span class="tag tag--speculation">【推测】</span>
+              <h3>闭环可能带来加速</h3>
+              <p>若增益大于瓶颈损耗，能力曲线会加速；反之会饱和。</p>
+              <p class="attribution">条件性结论，不是已证事实。</p>
+            </article>
+          </div>
+
+          <div class="loop-strip" aria-label="反馈回路">
+            <span>更强的改进器</span>
+            <span class="loop-arrow" aria-hidden="true">↻</span>
+            <span>更多改进</span>
+            <span class="loop-arrow" aria-hidden="true">↻</span>
+            <span>更高能力</span>
+            <span class="loop-arrow" aria-hidden="true">↻</span>
+            <span>再次投入</span>
+          </div>
+
+          <div class="block-heading block-heading--spaced">
+            <h3>反方攻击点：闭环增益可能被这些损耗吃掉</h3>
+            <p>每一条都可以转化为可测量的经验问题，而不是立场口号。</p>
+          </div>
+          <div class="attack-grid" id="attack-grid"></div>
+
+          <div class="verdict-panel">
+            <div class="verdict-mark" aria-hidden="true">§</div>
+            <div>
+              <span class="tag tag--debate">【本页结论：条件命题】</span>
+              <h3>结论依赖“闭环增益是否大于瓶颈损耗”</h3>
+              <p>
+                这不是纯哲学问题。可以定义每代改进收益 <em>G</em>、实验/评估/对齐成本 <em>B</em>、以及观察窗口 <em>T</em>：只有当 <em>G</em> 在 <em>T</em> 内持续大于 <em>B</em>，才会出现加速。当前公开工作只能给出短程、窄域的 <em>G</em> 与 <em>B</em> 片段，无法可靠外推。
+              </p>
+              <p class="attribution">本页的分析框架；参数估计仍是开放问题。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 · MECHANISMS -->
+      <section id="mechanisms" class="section section--tinted" aria-labelledby="mechanisms-title">
+        <div class="section-inner">
+          <header class="section-header">
+            <p class="section-kicker">04 / MECHANISM LAYERS</p>
+            <h2 id="mechanisms-title">机制分类：从组件级到元级</h2>
+            <p class="section-lead">
+              越往上，越接近“真正的 RSI”，但公开证据越弱。每层都给出代表工作与“离真 RSI 还差什么”。
+            </p>
+          </header>
+
+          <div class="layer-scale" aria-label="证据强度示意">
+            <div><span>组件级</span><div class="layer-bar"><i style="width:80%"></i></div><span>证据较多</span></div>
+            <div><span>系统级</span><div class="layer-bar"><i style="width:60%"></i></div><span>有强案例</span></div>
+            <div><span>元级</span><div class="layer-bar layer-bar--weak"><i style="width:22%"></i></div><span>证据最弱</span></div>
+          </div>
+          <p class="inline-note">条长为本页编辑评估，不是文献计量结果。</p>
+
+          <div class="mechanism-stack" id="mechanism-stack"></div>
+
+          <div class="callout callout--warm">
+            <div class="callout-icon" aria-hidden="true">↻</div>
+            <div>
+              <h3>边界案例：DGM 为什么不是“完整 RSI”</h3>
+              <p>
+                DGM 修改自己的代码库、改进编码能力，并且保留开放式档案，这已经超出普通“自我精炼”。但它仍依赖冻结的基础模型、公开编码基准与人类监督。它没有展示基础学习算法或评估器本身的自主改进，也没有展示跨开放域的长期递归。因此更准确的称呼是<strong>“代码级、受监督的递归自我改进候选”</strong>。
+              </p>
+              <p class="attribution">【事实】结果来自论文；【存在争议】“是否算 RSI”取决于定义。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 · EVIDENCE -->
+      <section id="evidence" class="section" aria-labelledby="evidence-title">
+        <div class="section-inner">
+          <header class="section-header">
+            <p class="section-kicker">05 / EMPIRICAL EVIDENCE</p>
+            <h2 id="evidence-title">经验证据库：11 项公开工作，逐项拆解</h2>
+            <p class="section-lead">
+              每张卡都记录：改进对象、闭环长度、评估者、人类角色、外部注入、效果、局限、可信度与四项评分。筛选与排序不会改变原始评分。
+            </p>
+          </header>
+
+          <div class="finding-panel">
+            <div class="finding-head">
+              <span class="tag tag--fact">【事实】</span>
+              <h3>本页核查范围内的共同特征</h3>
+            </div>
+            <p>
+              现有工作大多展示的是<strong>窄域、短程、需人类设定评估器</strong>的自我改进；尚无可信证据表明已出现开放式递归自我改进。这里的“事实”指：在下列 11 项公开工作中，没有一项同时满足“改进基础机制 + 评估独立 + 无需逐轮人类介入 + 跨域泛化 + 多代持续增益”的全部条件。
+            </p>
+            <p class="attribution">
+              这是对本页样本的范围限定，不是对全领域所有未公开工作的断言。可核查的负面结论应随样本更新。
+            </p>
+          </div>
+
+          <div class="evidence-toolbar" aria-label="证据筛选与排序">
+            <label class="field">
+              <span>闭环深度</span>
+              <select id="filter-depth">
+                <option value="all">全部深度</option>
+                <option value="2">≥ 2 代</option>
+                <option value="3">≥ 3 代</option>
+                <option value="4">≥ 4 代</option>
+                <option value="5">5 代（最深）</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>人类在环</span>
+              <select id="filter-human">
+                <option value="all">全部角色</option>
+                <option value="none">无需逐轮介入</option>
+                <option value="oversight">人类监督 / 设定</option>
+                <option value="step">人类逐轮介入</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>层级</span>
+              <select id="filter-layer">
+                <option value="all">全部层级</option>
+                <option value="组件级">组件级</option>
+                <option value="系统级">系统级</option>
+                <option value="元级">元级</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>排序</span>
+              <select id="sort-evidence">
+                <option value="credibility">可信度优先（默认）</option>
+                <option value="depth">闭环深度</option>
+                <option value="year">年份（新→旧）</option>
+                <option value="reproducibility">可复现性</option>
+                <option value="evaluation">评估独立性</option>
+              </select>
+            </label>
+            <label class="field field--search">
+              <span>搜索</span>
+              <input type="search" id="filter-search" placeholder="名称、机构、评估者…" autocomplete="off">
+            </label>
+            <button class="button button--small button--ghost" type="button" id="reset-evidence">重置筛选</button>
+          </div>
+
+          <div class="evidence-summary">
+            <span class="result-count" id="evidence-count" aria-live="polite">正在加载证据…</span>
+            <span class="sort-note">评分说明：四项 1–5 分是本页编辑评估，不是论文指标。</span>
+          </div>
+
+          <div class="evidence-grid" id="evidence-grid" aria-busy="true"></div>
+          <div class="empty-state" id="evidence-empty" hidden>
+            <h3>没有匹配的证据卡</h3>
+            <p>尝试降低闭环深度阈值、切换人类角色，或清空搜索词。</p>
+            <button class="button button--small" type="button" id="reset-evidence-empty">重置筛选</button>
+          </div>
+          <noscript>
+            <p class="callout callout--plain">证据库需要 JavaScript 渲染。请启用 JavaScript 后刷新页面。</p>
+          </noscript>
+
+          <div class="method-note">
+            <h3>评分维度如何理解</h3>
+            <div class="method-grid">
+              <div><strong>闭环深度</strong><span>1 = 单轮输出；2 = 少量迭代；3 = 多代且评估固定；4 = 修改代理/代码；5 = 开放式、多代、接近改改进器。</span></div>
+              <div><strong>评估独立性</strong><span>1 = 同一模型自评；3 = 外部基准但可被优化；5 = 独立环境/规则且难以博弈。</span></div>
+              <div><strong>可复现性</strong><span>1 = 无公开细节；3 = 有代码/数据但依赖大算力；5 = 小规模可独立复现。</span></div>
+              <div><strong>泛化性</strong><span>1 = 单一环境；3 = 多任务基准；5 = 跨开放域稳定迁移。</span></div>
+            </div>
+          </div>
+
+          <div class="checklist-block" id="checklist">
+            <div class="checklist-head">
+              <div>
+                <span class="tag tag--debate">【自评工具】</span>
+                <h3>“这篇论文算 RSI 吗？”六问</h3>
+                <p>回答六个问题，得到条件性的判断与解释。它不能替代同行评议，也不是学界统一标准。</p>
+              </div>
+              <button class="button button--small button--ghost" type="button" id="checklist-reset">重置回答</button>
+            </div>
+            <form id="checklist-form" aria-label="RSI 自评清单"></form>
+            <div class="checklist-result" id="checklist-result" aria-live="polite"></div>
+            <p class="checklist-note">
+              评分方向：六个“是”都指向更强的 RSI 候选。即便六项全为“是”，也只说明满足一组<strong>必要条件</strong>，仍需外部复现、审计与长期观察。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 06 · TAKEOFF -->
+      <section id="takeoff" class="section section--tinted" aria-labelledby="takeoff-title">
+        <div class="section-inner">
+          <header class="section-header">
+            <p class="section-kicker">06 / TAKEOFF DEBATE</p>
+            <h2 id="takeoff-title">加速论战：指数、S 曲线，还是证据不足？</h2>
+            <p class="section-lead">
+              下面是一个<strong>示意模型</strong>，不是预测。它只用于理解：每代增益、每代耗时与瓶颈强度如何共同决定曲线形状。
+            </p>
+          </header>
+
+          <div class="simulator" aria-labelledby="sim-title">
+            <div class="sim-heading">
+              <div>
+                <span class="tag tag--speculation">【示意模型】</span>
+                <h3 id="sim-title">起飞模拟器</h3>
+              </div>
+              <button class="button button--small button--ghost" type="button" id="sim-reset">恢复默认</button>
+            </div>
+
+            <div class="sim-grid">
+              <div class="sim-controls">
+                <label class="range-field" for="sim-gain">
+                  <span class="range-label"><span>每代能力增益 <em>g</em></span><output id="out-gain" for="sim-gain">15%</output></span>
+                  <input type="range" id="sim-gain" min="1" max="60" step="1" value="15">
+                  <span class="range-hint">每代在上一代基础上增加的比例。</span>
+                </label>
+                <label class="range-field" for="sim-time">
+                  <span class="range-label"><span>每代耗时</span><output id="out-time" for="sim-time">6 个月</output></span>
+                  <input type="range" id="sim-time" min="0.5" max="36" step="0.5" value="6">
+                  <span class="range-hint">训练、实验、评估与部署一轮所需时间。</span>
+                </label>
+                <label class="range-field" for="sim-bottleneck">
+                  <span class="range-label"><span>瓶颈强度 <em>k</em></span><output id="out-bottleneck" for="sim-bottleneck">0.45</output></span>
+                  <input type="range" id="sim-bottleneck" min="0" max="0.95" step="0.01" value="0.45">
+                  <span class="range-hint">0 = 几乎没有瓶颈；越接近 1，承载上限越低。</span>
+                </label>
+                <div class="sim-formula">
+                  <span>模型：logistic 曲线</span>
+                  <code>C<sub>n+1</sub> = C<sub>n</sub> · (1 + g · (1 − C<sub>n</sub>/K))</code>
+                  <span>K = 10<sup>9(1−k)</sup></span>
+                </div>
+              </div>
+
+              <div class="sim-chart-panel">
+                <div class="chart-head">
+                  <h4>100 代能力倍数（对数轴）</h4>
+                  <span>虚线 = 10×</span>
+                </div>
+                <div class="chart-shell">
+                  <canvas id="sim-chart" role="img" aria-label="起飞模拟曲线"></canvas>
+                  <div class="chart-fallback" id="chart-fallback" hidden>
+                    <div class="fallback-icon" aria-hidden="true">⌁</div>
+                    <h4>Chart.js 未能加载</h4>
+                    <p>可能原因：CDN 被网络策略阻断、离线或加载超时。模拟器结论仍会实时计算，以下为关键代际数据。</p>
+                    <button class="button button--small" type="button" id="chart-retry">重试加载 Chart.js</button>
+                  </div>
+                </div>
+                <div class="chart-table-wrap" id="chart-table-wrap">
+                  <table class="data-table chart-table">
+                    <caption class="sr-only">模拟器关键代际数据</caption>
+                    <thead><tr><th scope="col">代</th><th scope="col">年</th><th scope="col">能力倍数</th></tr></thead>
+                    <tbody id="sim-table-body"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="sim-readout" id="sim-readout" aria-live="polite">
+              <div class="readout-stat"><span>100 代后</span><strong id="out-final">—</strong><small id="out-years">—</small></div>
+              <div class="readout-stat"><span>10 年后</span><strong id="out-10y">—</strong><small>能力倍数</small></div>
+              <div class="readout-stat"><span>30 年后</span><strong id="out-30y">—</strong><small>能力倍数</small></div>
+              <div class="readout-stat"><span>拐点判断</span><strong id="out-inflection">—</strong><small id="out-inflection-note">—</small></div>
+            </div>
+            <p class="sim-verdict" id="sim-verdict"></p>
+            <p class="model-disclaimer">
+              <strong>重要限定：</strong>该模型参数没有经验依据，K 与曲线形状均为教学示意。它不预测真实 AI 能力、时间线或风险。改变 k 会改变上限，因而“拐点”与倍数都只是模型内部结果。
+            </p>
+          </div>
+
+          <div class="block-heading block-heading--spaced">
+            <h3>三方立场卡</h3>
+            <p>“快”与“慢”不是二选一；真正的分歧常在参数与瓶颈上。</p>
+          </div>
+          <div class="position-grid" id="position-cards"></div>
+
+          <div class="table-block">
+            <div class="block-heading">
+              <h3>观点矩阵：谁在主张什么？</h3>
+              <p>横向滚动查看；每格均为特定作者/模型的主张，不是本页断言。</p>
+            </div>
+            <div class="table-wrap table-wrap--matrix" tabindex="0" role="region" aria-label="人物观点矩阵，可横向滚动">
+              <table class="data-table viewpoint-table">
+                <caption class="sr-only">RSI 相关人物在可能性、时间尺度、主要瓶颈与政策主张上的观点</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">人物 / 年份</th>
+                    <th scope="col">是否可能</th>
+                    <th scope="col">时间尺度</th>
+                    <th scope="col">主要瓶颈</th>
+                    <th scope="col">政策主张</th>
+                    <th scope="col">可信度</th>
+                  </tr>
+                </thead>
+                <tbody id="viewpoint-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 07 · SAFETY -->
+      <section id="safety" class="section" aria-labelledby="safety-title">
+        <div class="section-inner">
+          <header class="section-header">
+            <p class="section-kicker">07 / SAFETY &amp; GOVERNANCE</p>
+            <h2 id="safety-title">安全与治理：风险链条、关键概念与工具</h2>
+            <p class="section-lead">
+              这一节把“已发生的事实”与“预案设想”分开。风险链条是情景分析，不是事故复盘；治理工具也不是效果保证。
+            </p>
+          </header>
+
+          <div class="risk-chain" id="risk-chain" aria-label="风险链条"></div>
+          <p class="risk-note">
+            <span class="tag tag--speculation">【推测】</span>
+            上图是风险情景链。截至最后核查日，没有公开、可复现的证据表明已出现开放式 RSI 或由其直接导致的失控事故。把“未发生”误读为“不可能”同样是错误。
+          </p>
+
+          <div class="block-heading block-heading--spaced">
+            <h3>关键概念：五个容易被口号化的词</h3>
+            <p>每张卡都标注证据状态；不要把治理术语当成已解决的技术方案。</p>
+          </div>
+          <div class="concept-grid" id="safety-concepts"></div>
+
+          <div class="table-block">
+            <div class="block-heading">
+              <h3>治理工具箱：现状与局限</h3>
+              <p>“已发生”指已有法规、标准或实践；“预案”指提案、承诺或研究建议。</p>
+            </div>
+            <div class="table-wrap" tabindex="0" role="region" aria-label="治理工具箱表，可横向滚动">
+              <table class="data-table governance-table">
+                <caption class="sr-only">RSI 相关治理工具、机制、现状、例子与局限</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">工具</th>
+                    <th scope="col">机制</th>
+                    <th scope="col">现状</th>
+                    <th scope="col">例子 / 依据</th>
+                    <th scope="col">局限</th>
+                  </tr>
+                </thead>
+                <tbody id="governance-body"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="warning-panel">
+            <span class="tag tag--fact">【事实】</span>
+            <h3>治理的核心困难：测量本身可被优化</h3>
+            <p>
+              算力阈值、能力评测与训练审计都依赖“能测出危险能力”这一前提。如果模型能识别评测环境并调整行为，或者评测指标本身存在漏洞，治理工具就会被绕过。这不是假设的必然结果，而是已被讨论的评估博弈问题。
+            </p>
+            <p class="attribution">本页综合；具体评测有效性仍需逐项验证。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 08 · CRITICISM -->
+      <section id="criticism" class="section section--tinted" aria-labelledby="criticism-title">
+        <div class="section-inner">
+          <header class="section-header">
+            <p class="section-kicker">08 / CRITIQUE &amp; OPEN QUESTIONS</p>
+            <h2 id="criticism-title">批评与未解问题：十二个不应被跳过的问题</h2>
+            <p class="section-lead">
+              这些批评不是“反 AI”立场，而是对证据、测量与论证结构的压力测试。每条都给出可信度与来源方向。
+            </p>
+          </header>
+
+          <div class="criticism-grid" id="criticism-grid"></div>
+
+          <div class="block-heading block-heading--spaced">
+            <h3>四个可推进的研究问题</h3>
+            <p>如果要把论战从口号推进到经验科学，至少需要回答这些。</p>
+          </div>
+          <div class="question-grid">
+            <article class="question-card">
+              <span class="question-num">Q1</span>
+              <h3>最小操作化测试是什么？</h3>
+              <p>能否定义一套跨论文可重复的判据：改进对象、评估独立性、闭环长度、人类介入与跨域迁移？</p>
+            </article>
+            <article class="question-card">
+              <span class="question-num">Q2</span>
+              <h3>闭环增益能持续多少代？</h3>
+              <p>在多代之后，收益是被评估成本、算力与数据瓶颈吃掉，还是继续上升？目前缺少长程公开数据。</p>
+            </article>
+            <article class="question-card">
+              <span class="question-num">Q3</span>
+              <h3>评估器能被做成抗博弈的吗？</h3>
+              <p>独立验证器、形式证明、隐藏测试集与人工审计各能提供多强的保证？它们能否随能力扩展？</p>
+            </article>
+            <article class="question-card">
+              <span class="question-num">Q4</span>
+              <h3>对齐能力会随改进能力同步提升吗？</h3>
+              <p>没有理由假设自动同步。需要分别测量“改进能力”和“监督/对齐能力”，并研究二者的耦合。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 09 · GLOSSARY -->
+      <section id="glossary" class="section" aria-labelledby="glossary-title">
+        <div class="section-inner">
+          <header class="section-header">
+            <p class="section-kicker">09 / GLOSSARY</p>
+            <h2 id="glossary-title">术语表：中英对照与一句话解释</h2>
+            <p class="section-lead">
+              关键术语在正文中可以悬浮查看；点击术语会跳转到此处并高亮。术语表不是“标准定义”，不同论文可能有不同用法。
+            </p>
+          </header>
+
+          <div class="glossary-toolbar">
+            <label class="field field--search" for="glossary-search">
+              <span>搜索术语</span>
+              <input type="search" id="glossary-search" placeholder="例如：Goodhart、self-play、评估…" autocomplete="off">
+            </label>
+            <span class="result-count" id="glossary-count" aria-live="polite"></span>
+          </div>
+          <div class="glossary-grid" id="glossary-grid"></div>
+          <div class="empty-state" id="glossary-empty" hidden>
+            <h3>没有匹配的术语</h3>
+            <p>试试中文、英文或更短的关键词。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 10 · READING -->
+      <section id="reading" class="section section--tinted" aria-labelledby="reading-title">
+        <div class="section-inner">
+          <header class="section-header">
+            <p class="section-kicker">10 / READING LIST</p>
+            <h2 id="reading-title">阅读清单：入门、论文、批评、政策</h2>
+            <p class="section-lead">
+              每条含标题、作者、年份、类型、链接与一句话导读。链接状态逐条标注；个别出版方防爬时使用作者/机构或配套页。2026-11-10 复查中 36 条有 34 条返回 200/202，2 条因当前网络环境连接失败，标为待核实。
+            </p>
+          </header>
+
+          <div class="reading-groups" id="reading-groups"></div>
+
+          <div class="source-audit">
+            <div>
+              <span class="tag tag--fact">【核查记录】</span>
+              <h3>来源与链接核查</h3>
+              <p>
+                时间轴、证据库与阅读清单中的外部链接已于 <time datetime="2026-11-10">2026-11-10</time> 抽查。arXiv 元数据通过官方 API 核对标题、作者与日期；未使用付费全文或受版权保护的全文抓取。
+              </p>
+              <p>
+                可下载本页的结构化数据：<a href="data/evidence.json" download>evidence.json</a> ·
+                <a href="data/papers.json" download>papers.json</a>。
+              </p>
+            </div>
+            <div class="audit-links">
+              <a class="button button--small button--ghost" href="data/evidence.json" download>下载证据数据</a>
+              <a class="button button--small button--ghost" href="data/papers.json" download>下载阅读清单</a>
+            </div>
+          </div>
+
+          <p class="inline-note">
+            术语提示：<span class="term" data-term="goodhart" tabindex="0" role="button">Goodhart's law</span>、
+            <span class="term" data-term="deceptive-alignment" tabindex="0" role="button">deceptive alignment</span>、
+            <span class="term" data-term="takeoff" tabindex="0" role="button">takeoff</span>。
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="section-inner footer-grid">
+        <div>
+          <a class="footer-brand" href="#overview">
+            <span class="brand-mark brand-mark--small" aria-hidden="true">
+              <svg viewBox="0 0 32 32" width="26" height="26" role="presentation">
+                <circle cx="16" cy="16" r="12" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".35"/>
+                <path d="M16 5a11 11 0 0 1 11 11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+                <circle cx="16" cy="16" r="3.2" fill="currentColor"/>
+              </svg>
+            </span>
+            <span>RSI 研究工作台</span>
+          </a>
+          <p class="footer-disclaimer">
+            本页为公开资料综述，观点归属已标注，不构成安全或政策建议。页面中的模型、评分与“是否算 RSI”的判断均标明为编辑评估或示意，不应作为投资、法律或部署决策依据。
+          </p>
+        </div>
+        <div class="footer-meta">
+          <p><strong>最后核查日期：</strong><time datetime="2026-11-10">2026-11-10</time></p>
+          <p><strong>技术栈：</strong>HTML + CSS + 原生 JavaScript（ES6）；Chart.js 4.x（CDN，含失败降级）；无后端、无构建工具。</p>
+          <p><strong>证据范围：</strong>公开论文、作者/机构页面、政策文本与公开报告；不抓取付费全文。</p>
+          <p class="footer-small">© 2026 RSI 研究工作台 · 公开资料综述 · 可自由引用并注明出处</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <div class="tooltip" id="term-tooltip" role="tooltip" hidden>
+    <strong class="tooltip-title"></strong>
+    <span class="tooltip-en"></span>
+    <span class="tooltip-body"></span>
+  </div>
+
+  <div class="chart-loading-status sr-only" id="chart-loading-status" aria-live="polite"></div>
+
+  <script src="js/content.js" defer></script>
+  <script src="js/app.js" defer></script>
+  <!-- Chart.js 4.x：CDN 不可达时由 app.js 显示数据表与重试按钮。 -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" async data-chartjs="true" onerror="window.__chartLoadFailed = true;"></script>
+</body>
+</html>

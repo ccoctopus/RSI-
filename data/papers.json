@@ -1,0 +1,360 @@
+{
+  "meta": {
+    "lastVerified": "2026-11-10",
+    "note": "所有条目均给出公开入口，链接状态逐一标注。个别出版方页面对自动抓取返回 403 时，改用作者、机构或配套解释页，并在导读中说明。2026-11-10 复查时有 2 条因当前网络环境连接失败，标为待核实。"
+  },
+  "groups": [
+    {
+      "id": "intro",
+      "name": "入门",
+      "description": "先建立概念、历史与时间线直觉；不必从最技术化的论文开始。",
+      "items": [
+        {
+          "title": "Speculations Concerning the First Ultraintelligent Machine",
+          "authors": "I. J. Good",
+          "year": 1965,
+          "type": "论文 / 思想实验",
+          "link": "https://vtechworks.lib.vt.edu/bitstream/handle/10919/89424/TechReport05-3.pdf",
+          "status": "verified",
+          "intro": "智能爆炸叙事的源头；注意作者明确称之为 speculative。"
+        },
+        {
+          "title": "The Coming Technological Singularity",
+          "authors": "Vernor Vinge",
+          "year": 1993,
+          "type": "会议论文",
+          "link": "https://edoras.sdsu.edu/~vinge/misc/singularity.html",
+          "status": "verified",
+          "intro": "把超人类智能、加速变化与不可预测性连接起来的经典文本。"
+        },
+        {
+          "title": "Superintelligence: Paths, Dangers, Strategies",
+          "authors": "Nick Bostrom",
+          "year": 2014,
+          "type": "书",
+          "link": "https://nickbostrom.com/superintelligence",
+          "status": "verified",
+          "intro": "取径速度、控制问题与工具性趋同的公共讨论入口。"
+        },
+        {
+          "title": "The Singularity: A Philosophical Analysis",
+          "authors": "David J. Chalmers",
+          "year": 2010,
+          "type": "论文",
+          "link": "https://www.consc.net/papers/singularity.pdf",
+          "status": "verified",
+          "intro": "把奇点论证拆成可讨论的前提，适合用来识别“哪一步是推测”。"
+        },
+        {
+          "title": "Intelligence Explosion FAQ",
+          "authors": "Luke Muehlhauser",
+          "year": 2013,
+          "type": "导论 / 报告",
+          "link": "https://intelligence.org/files/IE-FAQ.pdf",
+          "status": "verified",
+          "intro": "早期 AI 安全社区对智能爆炸问题的问答式梳理，带明显立场。"
+        },
+        {
+          "title": "Forecasting TAI with biological anchors（方法解释）",
+          "authors": "Ajeya Cotra（Cold Takes 解释页）",
+          "year": 2020,
+          "type": "报告 / 解释",
+          "link": "https://www.cold-takes.com/forecasting-transformative-ai-the-biological-anchors-method-in-a-nutshell/",
+          "status": "pending",
+          "intro": "用算力与生物锚点理解 TAI 时间线；读解释页比直接啃数百页报告更高效。"
+        },
+        {
+          "title": "An Interactive Model of AI Takeoff Speeds",
+          "authors": "Jaime Sevilla, Edu Roldán（解读 Tom Davidson）",
+          "year": 2023,
+          "type": "互动模型",
+          "link": "https://epoch.ai/blog/interactive-model-of-takeoff-speeds",
+          "status": "verified",
+          "intro": "亲手调参数，理解为什么“取径 3 年”背后有很宽的区间。"
+        }
+      ]
+    },
+    {
+      "id": "papers",
+      "name": "论文",
+      "description": "按“理论原型 → 脚手架 → 自奖励/自博弈 → 开放式代码演化”排列。",
+      "items": [
+        {
+          "title": "Gödel Machines: Self-Referential Universal Problem Solvers Making Provably Optimal Self-Improvements",
+          "authors": "Jürgen Schmidhuber",
+          "year": 2003,
+          "type": "理论论文",
+          "link": "https://arxiv.org/abs/cs/0309048",
+          "status": "verified",
+          "intro": "严格 RSI 的形式化原型；理解“可证明改写”为何难以落地。"
+        },
+        {
+          "title": "Self-Taught Optimizer (STOP): Recursively Self-Improving Code Generation",
+          "authors": "Eric Zelikman, Eliana Lorch, Lester Mackey, Adam Tauman Kalai",
+          "year": 2023,
+          "type": "论文",
+          "link": "https://arxiv.org/abs/2310.02304",
+          "status": "verified",
+          "intro": "最清晰的“脚手架自改”实验；作者自己划清了与 full RSI 的边界。"
+        },
+        {
+          "title": "Self-Rewarding Language Models",
+          "authors": "Weizhe Yuan 等",
+          "year": 2024,
+          "type": "论文",
+          "link": "https://arxiv.org/abs/2401.10020",
+          "status": "verified",
+          "intro": "自评作为奖励的系统级闭环；同时暴露评估独立性问题。"
+        },
+        {
+          "title": "AlphaEvolve: A coding agent for scientific and algorithmic discovery",
+          "authors": "Alexander Novikov 等",
+          "year": 2025,
+          "type": "论文 / 白皮书",
+          "link": "https://arxiv.org/abs/2506.13131",
+          "status": "verified",
+          "intro": "自动评估器 + 进化搜索的真实影响案例；注意基础模型未自改。"
+        },
+        {
+          "title": "Absolute Zero: Reinforced Self-play Reasoning with Zero Data",
+          "authors": "Andrew Zhao 等",
+          "year": 2025,
+          "type": "论文",
+          "link": "https://arxiv.org/abs/2505.03335",
+          "status": "verified",
+          "intro": "自提任务、代码验证、零外部任务数据；理解“零数据”的边界。"
+        },
+        {
+          "title": "Darwin Gödel Machine: Open-Ended Evolution of Self-Improving Agents",
+          "authors": "Jenny Zhang, Shengran Hu, Cong Lu, Robert Lange, Jeff Clune",
+          "year": 2025,
+          "type": "论文",
+          "link": "https://arxiv.org/abs/2505.22954",
+          "status": "verified",
+          "intro": "目前最强的代码级开放式自我改进公开案例之一；重点读安全措施与局限。"
+        },
+        {
+          "title": "Automated Design of Agentic Systems",
+          "authors": "Shengran Hu, Cong Lu, Jeff Clune",
+          "year": 2024,
+          "type": "论文",
+          "link": "https://arxiv.org/abs/2408.08435",
+          "status": "verified",
+          "intro": "元代理自动编写新代理；看清“设计自动化”与“改进器自改”的差别。"
+        },
+        {
+          "title": "Gödel Agent: A Self-Referential Agent Framework for Recursive Self-Improvement",
+          "authors": "Xunjian Yin 等",
+          "year": 2024,
+          "type": "论文",
+          "link": "https://arxiv.org/abs/2410.04444",
+          "status": "verified",
+          "intro": "运行时自指代码修改；适合与 DGM 对照阅读。"
+        },
+        {
+          "title": "Voyager: An Open-Ended Embodied Agent with Large Language Models",
+          "authors": "Guanzhi Wang 等",
+          "year": 2023,
+          "type": "论文",
+          "link": "https://arxiv.org/abs/2305.16291",
+          "status": "verified",
+          "intro": "开放环境中的技能库与自动课程；不是 RSI，但展示了长期闭环。"
+        },
+        {
+          "title": "Self-Refine: Iterative Refinement with Self-Feedback",
+          "authors": "Aman Madaan 等",
+          "year": 2023,
+          "type": "论文",
+          "link": "https://arxiv.org/abs/2303.17651",
+          "status": "verified",
+          "intro": "提示级自我精炼的代表；用来区分“改输出”和“改改进器”。"
+        },
+        {
+          "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+          "authors": "Noah Shinn 等",
+          "year": 2023,
+          "type": "论文",
+          "link": "https://arxiv.org/abs/2303.11366",
+          "status": "verified",
+          "intro": "用语言反馈替代权重更新的代理改进；无参数自改。"
+        },
+        {
+          "title": "STaR: Bootstrapping Reasoning With Reasoning",
+          "authors": "Eric Zelikman, Yuhuai Wu, Jesse Mu, Noah D. Goodman",
+          "year": 2022,
+          "type": "论文",
+          "link": "https://arxiv.org/abs/2203.14465",
+          "status": "verified",
+          "intro": "自生成 rationale + 答案过滤 + 微调；理解自我训练的基本回路。"
+        },
+        {
+          "title": "Mastering Chess and Shogi by Self-Play with a General Reinforcement Learning Algorithm",
+          "authors": "David Silver 等",
+          "year": 2017,
+          "type": "论文",
+          "link": "https://arxiv.org/abs/1712.01815",
+          "status": "verified",
+          "intro": "自博弈闭环的经典案例；封闭规则、明确奖励，不能直接外推到开放域。"
+        },
+        {
+          "title": "Constitutional AI: Harmlessness from AI Feedback",
+          "authors": "Yuntao Bai 等",
+          "year": 2022,
+          "type": "论文",
+          "link": "https://arxiv.org/abs/2212.08073",
+          "status": "verified",
+          "intro": "用 AI 反馈做对齐训练；与“自我改进”相邻但目标不同。"
+        }
+      ]
+    },
+    {
+      "id": "critique",
+      "name": "批评",
+      "description": "从测量、评估、对齐与经济学角度攻击“自动加速”论证。",
+      "items": [
+        {
+          "title": "Economics of the Singularity",
+          "authors": "Robin Hanson",
+          "year": 2008,
+          "type": "文章",
+          "link": "https://spectrum.ieee.org/economics-of-the-singularity",
+          "status": "pending",
+          "intro": "从递减回报与经济史角度质疑快速智能爆炸的必然性。"
+        },
+        {
+          "title": "On the Measure of Intelligence",
+          "authors": "François Chollet",
+          "year": 2019,
+          "type": "论文",
+          "link": "https://arxiv.org/abs/1911.01547",
+          "status": "verified",
+          "intro": "讨论“智能”如何被测量；对用单一基准宣称能力跃迁的批评很有用。"
+        },
+        {
+          "title": "AI and the Everything in the Whole Wide World Benchmark",
+          "authors": "Inioluwa Deborah Raji 等",
+          "year": 2021,
+          "type": "论文",
+          "link": "https://arxiv.org/abs/2111.15366",
+          "status": "verified",
+          "intro": "对“大而全基准”的方法论批评；理解基准污染与指标选择。"
+        },
+        {
+          "title": "Goodhart's Law in Reinforcement Learning",
+          "authors": "Jacek Karwowski 等",
+          "year": 2023,
+          "type": "论文",
+          "link": "https://arxiv.org/abs/2310.09144",
+          "status": "verified",
+          "intro": "形式化讨论奖励优化与代理指标偏离；自我改进评估的直接风险。"
+        },
+        {
+          "title": "The Alignment Problem from a Deep Learning Perspective",
+          "authors": "Richard Ngo, Lawrence Chan, Sören Mindermann",
+          "year": 2022,
+          "type": "论文",
+          "link": "https://arxiv.org/abs/2209.00626",
+          "status": "verified",
+          "intro": "把对齐问题放进深度学习训练动态中讨论；适合评估“能力提升是否自动带来对齐”。"
+        },
+        {
+          "title": "Risks from Learned Optimization in Advanced Machine Learning Systems",
+          "authors": "Evan Hubinger 等",
+          "year": 2019,
+          "type": "论文",
+          "link": "https://arxiv.org/abs/1906.01820",
+          "status": "verified",
+          "intro": "mesa-optimization 与 deceptive alignment 的概念来源之一。"
+        },
+        {
+          "title": "Goal Misgeneralization in Deep Reinforcement Learning",
+          "authors": "Lauro Langosco 等",
+          "year": 2021,
+          "type": "论文",
+          "link": "https://arxiv.org/abs/2105.14111",
+          "status": "verified",
+          "intro": "能力泛化不等于目标泛化；对“自我改进会保留对齐”的乐观假设提出反例。"
+        },
+        {
+          "title": "Frontier Models are Capable of In-context Scheming",
+          "authors": "Alexander Meinke 等",
+          "year": 2024,
+          "type": "论文",
+          "link": "https://arxiv.org/abs/2412.04984",
+          "status": "verified",
+          "intro": "实验室环境中的策略性行为证据；注意这是受控评测，不等于真实部署失控。"
+        }
+      ]
+    },
+    {
+      "id": "policy",
+      "name": "政策",
+      "description": "治理工具、审计、算力阈值与国际协调；区分已发生事实与预案设想。",
+      "items": [
+        {
+          "title": "Frontier AI Regulation: Managing Emerging Risks to Public Safety",
+          "authors": "Markus Anderljung 等",
+          "year": 2023,
+          "type": "政策论文",
+          "link": "https://arxiv.org/abs/2307.03718",
+          "status": "verified",
+          "intro": "前沿 AI 监管的工具箱：许可、评估、审计与责任分配。"
+        },
+        {
+          "title": "Computing Power and the Governance of Artificial Intelligence",
+          "authors": "Girish Sastry 等",
+          "year": 2024,
+          "type": "政策论文",
+          "link": "https://arxiv.org/abs/2402.08797",
+          "status": "verified",
+          "intro": "算力为何成为治理抓手，以及算力阈值的局限。"
+        },
+        {
+          "title": "Open Problems in Technical AI Governance",
+          "authors": "Anka Reuel 等",
+          "year": 2024,
+          "type": "论文",
+          "link": "https://arxiv.org/abs/2407.14981",
+          "status": "verified",
+          "intro": "把“治理需要什么测量”拆成研究问题；适合找未解问题。"
+        },
+        {
+          "title": "International AI Safety Report 2025",
+          "authors": "Yoshua Bengio 等（专家组）",
+          "year": 2025,
+          "type": "国际报告",
+          "link": "https://internationalaisafetyreport.org/publication/international-ai-safety-report-2025",
+          "status": "verified",
+          "intro": "多国专家对前沿 AI 风险与证据强度的综述；注意它是政策相关报告，不是单一研究结论。"
+        },
+        {
+          "title": "Regulation (EU) 2024/1689（AI Act）",
+          "authors": "European Union",
+          "year": 2024,
+          "type": "法规",
+          "link": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+          "status": "verified",
+          "intro": "以风险分级与通用模型义务为核心的法规文本；查看算力阈值与实施时间表。"
+        },
+        {
+          "title": "AI Risk Management Framework",
+          "authors": "NIST",
+          "year": 2023,
+          "type": "标准 / 框架",
+          "link": "https://www.nist.gov/itl/ai-risk-management-framework",
+          "status": "verified",
+          "intro": "组织层面的风险管理框架；不是 RSI 专项，但可用于治理工具对照。"
+        },
+        {
+          "title": "Statement on AI Risk",
+          "authors": "Center for AI Safety 及签署者",
+          "year": 2023,
+          "type": "公开声明",
+          "link": "https://www.safe.ai/work/statement-on-ai-risk",
+          "status": "verified",
+          "intro": "“缓解 AI 灭绝风险应成为全球优先事项”的公开声明；属于主张，不是证据。"
+        }
+      ]
+    }
+  ]
+}
